@@ -643,6 +643,11 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
 .fit-col.no li::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23676961' stroke-width='1.7' stroke-linecap='round'%3E%3Cpath d='M2.6 13.4 13.4 2.6'/%3E%3C/svg%3E");
 }
+/* Колонка требований — не отказ, а условия. Поэтому не крестик, а короткий
+   штрих на полях: перечисление, а не приговор. */
+.fit-col.cond li::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23676961' stroke-width='1.7' stroke-linecap='round'%3E%3Cpath d='M3 8.2h10'/%3E%3C/svg%3E");
+}
 .fit-col b { font-weight: 700; }
 
 /* ── Таблицы ─────────────────────────────────────────────────────────────── */

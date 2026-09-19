@@ -24,7 +24,7 @@
      открывается не всегда, а страница не должна от этого зависеть. -->
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/static/fonts/alegreya-cyrillic-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/static/fonts/alegreya-sans-cyrillic-400-normal.woff2">
-<link rel="stylesheet" href="/static/css/style.css?v=-1212101883">
+<link rel="stylesheet" href="/static/css/style.css?v=-1211543828">
 
 <!-- Знак сайта: два листа дела со срезанным углом. Та же геометрия,
      что у кнопок и ярлыков внутри страницы. -->
@@ -215,7 +215,16 @@
   </div>
 </footer>
 
-<script src="/static/js/main.js?v=-1212101883"></script>
+<!-- Кнопка-хвост: всплывает, когда первый экран с основной кнопкой уже
+     прокручен, и прячется у формы записи, чтобы не спорить с ней.
+     На странице разбора не нужна — там человек уже пришёл. -->
+
+<div class="cta-dock" id="cta-dock" hidden>
+  <a href="/razbor" class="btn btn-lg">Записаться на разбор</a>
+</div>
+
+
+<script src="/static/js/main.js?v=-1211543828"></script>
 </body>
 </html>
 

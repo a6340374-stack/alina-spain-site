@@ -253,3 +253,43 @@ document.querySelectorAll('.lead-form').forEach(function (form) {
   window.addEventListener('resize', onScroll);
   frame();
 })();
+
+// ── Кнопка-хвост ────────────────────────────────────────────────────────────
+// Показываем, когда основная кнопка первого экрана ушла вверх, и убираем,
+// когда на экране появилась сама форма: две одинаковые кнопки рядом мешают.
+(function () {
+  var dock = document.getElementById('cta-dock');
+  if (!dock) return;
+
+  var topActions = document.querySelector('.cover-actions');
+  var form = document.getElementById('zayavka') || document.querySelector('.form-card');
+  var pastTop = false;
+  var formVisible = false;
+
+  function apply() {
+    dock.hidden = false;
+    dock.classList.toggle('is-on', pastTop && !formVisible);
+  }
+
+  if ('IntersectionObserver' in window) {
+    if (topActions) {
+      new IntersectionObserver(function (e) {
+        pastTop = !e[0].isIntersecting;
+        apply();
+      }, { rootMargin: '-80px 0px 0px 0px' }).observe(topActions);
+    } else {
+      pastTop = true;
+    }
+    if (form) {
+      new IntersectionObserver(function (e) {
+        formVisible = e[0].isIntersecting;
+        apply();
+      }, { rootMargin: '0px 0px -10% 0px' }).observe(form);
+    }
+    apply();
+  } else {
+    // без наблюдателя просто показываем: кнопка важнее анимации появления
+    dock.hidden = false;
+    dock.classList.add('is-on');
+  }
+})();

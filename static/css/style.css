@@ -1052,3 +1052,34 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   .nav-inline { display: none; }
   .nav-toggle { display: flex; }
 }
+
+/* ── Кнопка-хвост ────────────────────────────────────────────────────────────
+   Держится у нижнего края, пока человек читает середину страницы. На узком
+   экране — полосой во всю ширину, на широком — карточкой в углу. */
+.cta-dock {
+  position: fixed;
+  z-index: 55;
+  right: clamp(16px, 2.4vw, 32px);
+  bottom: clamp(16px, 2.4vw, 28px);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.28s var(--ease), transform 0.28s var(--ease);
+  pointer-events: none;
+}
+.cta-dock.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.cta-dock .btn { box-shadow: 0 10px 30px -12px rgba(15, 37, 68, 0.45); }
+
+@media (max-width: 720px) {
+  .cta-dock {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+  .cta-dock .btn { display: block; width: 100%; text-align: center; }
+  /* полоса лежит поверх страницы — освобождаем под неё место, иначе она
+     закрывает последнюю строку футера */
+  body { padding-bottom: 78px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-dock { transition: none; }
+}

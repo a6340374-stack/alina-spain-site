@@ -48,37 +48,9 @@ var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   setTimeout(function () { items.forEach(function (el) { el.classList.add('revealed'); }); }, 2000);
 })();
 
-// ── Шапка уезжает при прокрутке вниз и возвращается при прокрутке вверх ──
-// Просто прятать её нельзя: вся навигация сидит за бургером, и без возврата
-// наверх пользователь остался бы без меню посреди страницы.
-(function () {
-  var header = document.querySelector('.site-header');
-  if (!header) return;
-
-  var lastY = window.scrollY;
-  var ticking = false;
-
-  function update() {
-    var y = window.scrollY;
-    var open = document.querySelector('.nav-overlay.open');
-
-    if (open || y <= 90) {
-      header.classList.remove('is-hidden');
-    } else if (y > lastY) {
-      header.classList.add('is-hidden');
-    } else if (lastY - y > 12) {
-      header.classList.remove('is-hidden');
-    }
-    lastY = y;
-    ticking = false;
-  }
-
-  window.addEventListener('scroll', function () {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(update);
-  }, { passive: true });
-})();
+// ── Шапка ───────────────────────────────────────────────────────────────
+// Она закреплена и при прокрутке не уезжает: на широком экране разделы
+// стоят строкой и должны оставаться под рукой на любой высоте страницы.
 
 // ═══ Интерфейс ═══
 

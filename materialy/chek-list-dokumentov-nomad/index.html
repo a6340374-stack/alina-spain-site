@@ -24,7 +24,7 @@
      открывается не всегда, а страница не должна от этого зависеть. -->
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/static/fonts/alegreya-cyrillic-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/static/fonts/alegreya-sans-cyrillic-400-normal.woff2">
-<link rel="stylesheet" href="/static/css/style.css?v=-678491832">
+<link rel="stylesheet" href="/static/css/style.css?v=-678249501">
 
 <!-- Знак сайта: два листа дела со срезанным углом. Та же геометрия,
      что у кнопок и ярлыков внутри страницы. -->
@@ -43,6 +43,8 @@
 </script>
 </head>
 <body data-lead-mode="messenger">
+
+
 
 <header class="site-header">
   <div class="header-inner">
@@ -156,8 +158,9 @@
 
   <div class="field">
     <label for="f1uc0hfc-contact">Telegram, WhatsApp или почта <span class="req">*</span></label>
-    <input id="f1uc0hfc-contact" type="text" name="contact" placeholder="@username или +34 ..." maxlength="200" autocomplete="off" required aria-describedby="f1uc0hfc-contact-hint f1uc0hfc-error">
+    <input id="f1uc0hfc-contact" type="text" name="contact" placeholder="@username или +34 ..." maxlength="200" autocomplete="off" required aria-describedby="f1uc0hfc-contact-hint f1uc0hfc-contact-error">
     <p class="field-hint" id="f1uc0hfc-contact-hint">Ник в Telegram, номер телефона с кодом страны или почта</p>
+    <p class="field-error" id="f1uc0hfc-contact-error" role="alert"></p>
   </div>
 
   
@@ -202,6 +205,7 @@
     <p style="margin-top:1.6em"><a href="/razbor" class="btn btn-lg">Записаться на разбор</a></p>
   </div>
 </section>
+
 
 <footer class="site-footer">
   <div class="wrap">
@@ -258,7 +262,7 @@
 </div>
 
 
-<script src="/static/js/main.js?v=-678491832"></script>
+<script src="/static/js/main.js?v=-678249501"></script>
 </body>
 </html>
 

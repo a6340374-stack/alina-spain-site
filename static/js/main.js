@@ -144,11 +144,14 @@ document.querySelectorAll('.lead-form').forEach(function (form) {
 
   var errorBox = form.querySelector('.form-error');
   var contact = form.querySelector('[name="contact"]');
+  var contactError = form.querySelector('.field-error');
   var fallback = form.querySelector('.form-fallback');
 
+  // Ошибка в поле — под самим полем; ошибка отправки — у кнопки
   function showError(message, invalidField) {
-    errorBox.textContent = message;
-    errorBox.classList.add('show');
+    var box = invalidField && contactError ? contactError : errorBox;
+    box.textContent = message;
+    box.classList.add('show');
     if (invalidField) {
       invalidField.setAttribute('aria-invalid', 'true');
       invalidField.focus();
@@ -156,8 +159,11 @@ document.querySelectorAll('.lead-form').forEach(function (form) {
   }
 
   function clearError() {
-    errorBox.textContent = '';
-    errorBox.classList.remove('show');
+    [errorBox, contactError].forEach(function (box) {
+      if (!box) return;
+      box.textContent = '';
+      box.classList.remove('show');
+    });
     contact.removeAttribute('aria-invalid');
     if (fallback) fallback.hidden = true;
   }
@@ -297,6 +303,18 @@ document.querySelectorAll('.lead-form').forEach(function (form) {
     // Фокус на подтверждение: экранная читалка объявит, что заявка ушла
     var okTitle = ok.querySelector('h3');
     if (okTitle) okTitle.focus({ preventScroll: true });
+  });
+});
+
+// ── Переход к форме записи на этой же странице ──
+// Прокрутку делает CSS (scroll-behavior и scroll-padding). С мышью курсор
+// сразу ставится в поле контакта; на телефоне — нет: фокус открыл бы
+// клавиатуру посреди прокрутки.
+document.querySelectorAll('a[href="#zayavka"]').forEach(function (link) {
+  link.addEventListener('click', function () {
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+    var field = document.querySelector('#zayavka [name="contact"]');
+    if (field) setTimeout(function () { field.focus({ preventScroll: true }); }, reduceMotion ? 0 : 450);
   });
 });
 

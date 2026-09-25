@@ -864,6 +864,8 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 
 .form-error { display: none; margin-top: 12px; font-size: 0.95rem; font-weight: 500; line-height: 1.45; color: var(--error); }
 .form-error.show { display: block; }
+.field-error { display: none; margin: 0.45em 0 0; font-size: 0.92rem; font-weight: 500; line-height: 1.45; color: var(--error); }
+.field-error.show { display: block; }
 
 /* Запасной путь, если сервер не ответил */
 .form-fallback { margin-top: 16px; padding: 18px; border-radius: 12px; background: var(--cal); }

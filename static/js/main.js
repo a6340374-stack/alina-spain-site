@@ -107,21 +107,130 @@ if (navToggle && nav) {
 }
 
 // ── Отправка заявок ──
+// Заявка — единственная цель сайта, поэтому она не должна теряться ни при
+// каких сбоях. Если приёмник не ответил, человек не видит техническую
+// ошибку: форма собирает текст заявки и предлагает отправить его в мессенджер.
+
+// Контакт должен быть похож на то, по чему реально можно написать:
+// почта, телефон (7–15 цифр), ник или ссылка в Telegram. «abc» не проходит.
+function isReachableContact(value) {
+  var v = value.trim();
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return true;
+  var digits = v.replace(/\D/g, '');
+  if (/^\+?[\d\s().-]+$/.test(v) && digits.length >= 7 && digits.length <= 15) return true;
+  if (/^(https?:\/\/)?(t\.me|telegram\.me)\/[A-Za-z0-9_]{4,32}\/?$/i.test(v)) return true;
+  if (/^@?[A-Za-z][A-Za-z0-9_]{4,31}$/.test(v)) return true;
+  return false;
+}
+
+var LEAD_LABELS = {
+  name: 'Имя', contact: 'Контакт', location: 'Где сейчас', family: 'Кто едет',
+  income_source: 'Источник дохода', income_range: 'Доход в месяц', comment: 'Комментарий',
+};
+
+function leadText(form) {
+  var fd = new FormData(form);
+  var lines = ['Здравствуйте, Алина! Хочу записаться на разбор.'];
+  Object.keys(LEAD_LABELS).forEach(function (key) {
+    var val = (fd.get(key) || '').toString().trim();
+    if (val) lines.push(LEAD_LABELS[key] + ': ' + val);
+  });
+  return lines.join('\n');
+}
+
 document.querySelectorAll('.lead-form').forEach(function (form) {
   var pageField = form.querySelector('input[name="page"]');
   if (pageField) pageField.value = location.pathname;
 
+  var errorBox = form.querySelector('.form-error');
+  var contact = form.querySelector('[name="contact"]');
+  var fallback = form.querySelector('.form-fallback');
+
+  function showError(message, invalidField) {
+    errorBox.textContent = message;
+    errorBox.classList.add('show');
+    if (invalidField) {
+      invalidField.setAttribute('aria-invalid', 'true');
+      invalidField.focus();
+    }
+  }
+
+  function clearError() {
+    errorBox.textContent = '';
+    errorBox.classList.remove('show');
+    contact.removeAttribute('aria-invalid');
+    if (fallback) fallback.hidden = true;
+  }
+
+  var fallbackLead = fallback ? fallback.querySelector('.form-fallback-lead') : null;
+  var fallbackLeadDefault = fallbackLead ? fallbackLead.textContent : '';
+
+  // message — текст ошибки; без него панель показывается как обычный шаг,
+  // а не как сбой (статика без приёмника: заявка сразу уходит в мессенджер)
+  function showFallback(message) {
+    if (message) showError(message);
+    if (!fallback) return;
+    if (fallbackLead) {
+      fallbackLead.textContent = message
+        ? fallbackLeadDefault
+        : 'Заявку Алина примет в Telegram. Текст уже собран из формы, осталось нажать кнопку и отправить:';
+    }
+    var text = leadText(form);
+    var box = fallback.querySelector('.form-fallback-text');
+    box.value = text;
+    var tg = fallback.querySelector('[data-fallback="telegram"]');
+    if (tg) tg.href = tg.href.split('?')[0] + '?text=' + encodeURIComponent(text);
+    var wa = fallback.querySelector('[data-fallback="whatsapp"]');
+    if (wa) wa.href = wa.href.split('?')[0] + '?text=' + encodeURIComponent(text);
+    fallback.hidden = false;
+  }
+
+  contact.addEventListener('input', function () {
+    if (contact.getAttribute('aria-invalid')) clearError();
+  });
+
+  if (fallback) {
+    var copyBtn = fallback.querySelector('.form-fallback-copy');
+    var box = fallback.querySelector('.form-fallback-text');
+    var copyText = function () {
+      var done = function () { copyBtn.textContent = 'Скопировано'; };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(box.value).then(done, function () { box.select(); });
+      }
+      box.select();
+    };
+    copyBtn.addEventListener('click', copyText);
+    // Не все приложения Telegram подставляют текст из ссылки, поэтому
+    // при переходе он заодно копируется: останется вставить и отправить.
+    fallback.querySelectorAll('[data-fallback]').forEach(function (link) {
+      link.addEventListener('click', function () { copyText(); });
+    });
+  }
+
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
+    clearError();
 
-    var errorBox = form.querySelector('.form-error');
-    var contact = form.querySelector('[name="contact"]');
-    errorBox.classList.remove('show');
+    if (!contact.value.trim()) {
+      showError('Укажите, куда вам написать: Telegram, WhatsApp или почту.', contact);
+      return;
+    }
+    if (!isReachableContact(contact.value)) {
+      showError('Не получается распознать контакт. Напишите ник в Telegram (@username), номер телефона с кодом страны или почту.', contact);
+      return;
+    }
 
-    if (!contact.value || contact.value.trim().length < 3) {
-      errorBox.textContent = 'Укажите, куда вам написать: Telegram, WhatsApp или почту';
-      errorBox.classList.add('show');
-      contact.focus();
+    if (document.body.getAttribute('data-lead-mode') === 'messenger') {
+      // Форма ради материала: человек пришёл за файлом — отдаём файл.
+      // «Заявка отправлена» тут не показываем: никуда она не ушла.
+      var dl = form.getAttribute('data-download');
+      if (dl) {
+        window.location.href = dl;
+        return;
+      }
+      showFallback();
+      var first = fallback && fallback.querySelector('[data-fallback]');
+      if (first) first.focus();
       return;
     }
 
@@ -129,41 +238,65 @@ document.querySelectorAll('.lead-form').forEach(function (form) {
     var label = btn.textContent;
     btn.disabled = true;
     btn.textContent = 'Отправляю…';
+    form.setAttribute('aria-busy', 'true');
 
+    var restore = function () {
+      btn.disabled = false;
+      btn.textContent = label;
+      form.removeAttribute('aria-busy');
+    };
+
+    // На своём сервере это /lead. В статике на Pages сервера нет:
+    // адрес внешнего приёмника кладётся в <body data-lead-endpoint>.
+    var endpoint = document.body.getAttribute('data-lead-endpoint') || '/lead';
+    var controller = 'AbortController' in window ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 15000) : null;
+    var res = null;
+    var data = null;
     try {
-      // На своём сервере это /lead. В статике на Pages сервера нет:
-      // адрес внешнего приёмника кладётся в <body data-lead-endpoint>.
-      var endpoint = document.body.getAttribute('data-lead-endpoint') || '/lead';
-      var res = await fetch(endpoint, {
+      res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        signal: controller ? controller.signal : undefined,
       });
-      var data = await res.json();
-
-      if (!data.ok) throw new Error(data.error || 'Не удалось отправить');
-
-      var ok = document.getElementById(form.id + '-ok');
-      form.style.display = 'none';
-      ok.classList.add('show');
-
-      // Ссылку на материал возвращает сервер, а в статике она заранее
-      // напечатана в самой форме.
-      var download = data.download || form.getAttribute('data-download');
-      if (download) {
-        var slot = ok.querySelector('.download-slot');
-        slot.innerHTML =
-          '<p style="margin-top:24px"><a class="btn" href="' + download + '">Скачать материал</a></p>';
-        setTimeout(function () { window.location.href = download; }, 900);
-      }
-
-      ok.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      // Ответ может прийти не JSON-ом (страница ошибки хостинга) — это тоже сбой
+      data = await res.json().catch(function () { return null; });
     } catch (err) {
-      errorBox.textContent = err.message + '. Попробуйте ещё раз или напишите в Telegram.';
-      errorBox.classList.add('show');
-      btn.disabled = false;
-      btn.textContent = label;
+      res = null;
     }
+    if (timer) clearTimeout(timer);
+
+    if (!res || !data || !data.ok) {
+      restore();
+      if (res && res.status === 400 && data && /контакт/i.test(data.error || '')) {
+        showError('Не получается распознать контакт. Напишите ник в Telegram (@username), номер телефона с кодом страны или почту.', contact);
+      } else if (res && res.status === 429) {
+        showFallback('Слишком много попыток подряд. Подождите пару минут или отправьте заявку в мессенджер.');
+      } else {
+        showFallback('Заявка не ушла: сайт не получил ответа. Всё, что вы ввели, сохранено. Можно нажать кнопку ещё раз или отправить заявку в мессенджер.');
+      }
+      return;
+    }
+
+    var ok = document.getElementById(form.id + '-ok');
+    form.style.display = 'none';
+    ok.classList.add('show');
+
+    // Ссылку на материал возвращает сервер, а в статике она заранее
+    // напечатана в самой форме.
+    var download = data.download || form.getAttribute('data-download');
+    if (download) {
+      var slot = ok.querySelector('.download-slot');
+      slot.innerHTML =
+        '<p style="margin-top:24px"><a class="btn" href="' + download + '">Скачать материал</a></p>';
+      setTimeout(function () { window.location.href = download; }, 900);
+    }
+
+    ok.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    // Фокус на подтверждение: экранная читалка объявит, что заявка ушла
+    var okTitle = ok.querySelector('h3');
+    if (okTitle) okTitle.focus({ preventScroll: true });
   });
 });
 

@@ -74,22 +74,26 @@
 
 /* ── Токены ──────────────────────────────────────────────────────────────── */
 :root {
-  /* Цвет. Шесть имён, все взяты из материала, а не из палитры «премиум».
-     cal — известь, которой белят стены в Андалусии: почти белая, с холодным
-     зелёным подтоном; не крем и не серый из UI-набора.
-     almagra — та самая красная охра с цоколя дома. Работает тоном, а не
-     заливкой: печать, галочка «одобрено», активный пункт, звёздочка поля. */
+  /* Цвет. Сайт живёт на холодной синеве: фон — светлая голубая стена,
+     текст — густые синие чернила, акцент — кобальт. Кобальт свой, а не
+     стандартный синий UI-наборов: темнее и спокойнее, белый текст на нём
+     держит 6.6:1. Акцент работает на действие и отметку, а не на заливку
+     больших площадей. Все пары текст/фон проверены на WCAG AA (4.5:1).
+     Имена cal/papel/tinta/linea остались от первой версии «дела»: это роли
+     (стена, лист, чернила, линейка), а не цвета. */
   --cal:      #eef3fb;   /* фон страницы — холодный голубой */
   --cal-deep: #e3ebf9;   /* чередующаяся секция, на тон глубже */
   --papel:    #ffffff;   /* карточки и всё, что лежит поверх фона */
   --tinta:    #0f2544;   /* основной текст — почти синий, не чёрный */
-  --tinta-2:  #3c5578;
-  --tinta-3:  #64789a;
-  --almagra:  #2563eb;   /* акцент: кнопки, ссылки, подсветка */
-  --almagra-d:#1d4fd8;
+  --tinta-2:  #3c5578;   /* второстепенный текст */
+  --tinta-3:  #516580;   /* подписи и метки: ≥4.8:1 на всех фонах */
+  --accent:   #145cb0;   /* кобальт: кнопки, ссылки, отметки, фокус */
+  --accent-strong: #004894; /* наведение и нажатие */
+  --on-accent: #ffffff;  /* текст на кобальте */
   --linea:    rgba(15, 37, 68, 0.12);
   --linea-2:  rgba(15, 37, 68, 0.06);
-  --marker:   #dbe8fe;   /* заливка маркера в заголовках */
+  --marker:   #dbe9fc;   /* заливка маркера и тихих подсветок */
+  --error:    #b3261e;   /* только ошибки формы: 5.5:1 и выше на всех фонах сайта */
   --tarjeta:  0 1px 2px rgba(15,37,68,.04), 0 8px 24px -12px rgba(15,37,68,.12);
 
   --serif: 'Alegreya Sans', -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -133,7 +137,7 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: rgba(156, 61, 43, 0.16); }
+::selection { background: var(--marker); color: var(--tinta); }
 
 h1, h2, h3, h4 {
   font-family: var(--serif);
@@ -155,9 +159,9 @@ h1 em, h2 em, h3 em {
   display: inline-block;
   padding: 0.06em 0.34em;
   margin: 0 -0.1em;
-  color: var(--almagra);
+  color: var(--accent);
   background: var(--marker);
-  border: 1px dashed rgba(37, 99, 235, 0.45);
+  border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
   border-radius: 4px;
 }
 
@@ -169,16 +173,16 @@ a { color: inherit; text-decoration: none; }
 .prose a,
 .text-link,
 p a:not(.btn):not(.arrow-link) {
-  border-bottom: 1px solid rgba(156, 61, 43, 0.4);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
   transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 .prose a:hover,
 .text-link:hover,
-p a:not(.btn):not(.arrow-link):hover { color: var(--almagra); border-bottom-color: var(--almagra); }
+p a:not(.btn):not(.arrow-link):hover { color: var(--accent); border-bottom-color: var(--accent); }
 
 img { max-width: 100%; height: auto; display: block; }
 
-:focus-visible { outline: 2px solid var(--almagra); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* ── Сетка страницы ──────────────────────────────────────────────────────── */
 .wrap {
@@ -257,7 +261,7 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
   letter-spacing: -0.02em;
   display: block;
 }
-.figure sup { font-size: 0.3em; vertical-align: 1.35em; color: var(--almagra); letter-spacing: 0; margin-left: -0.1em; }
+.figure sup { font-size: 0.3em; vertical-align: 1.35em; color: var(--accent); letter-spacing: 0; margin-left: -0.1em; }
 
 /* ── Кнопки ──────────────────────────────────────────────────────────────────
    Действие на странице одно, и выглядит оно одинаково везде: чернильная
@@ -271,20 +275,20 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
   font-weight: 500;
   letter-spacing: 0.015em;
   padding: 0.95em 1.9em;
-  background: var(--almagra);
-  color: #fff;
+  background: var(--accent);
+  color: var(--on-accent);
   border: 0;
   border-radius: 10px;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.22s var(--ease), color 0.22s var(--ease);
 }
-.btn:hover { background: var(--almagra-d); }
-.btn-primary { background: var(--almagra); color: #fff; }
-.btn-primary:hover { background: var(--almagra-d); }
+.btn:hover { background: var(--accent-strong); }
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-primary:hover { background: var(--accent-strong); }
 /* второстепенное действие — контур, а не вторая заливка */
-.btn-ghost { background: transparent; color: var(--almagra); box-shadow: inset 0 0 0 1px rgba(37,99,235,.35); }
-.btn-ghost:hover { background: var(--marker); color: var(--almagra-d); }
+.btn-ghost { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent); }
+.btn-ghost:hover { background: var(--marker); color: var(--accent-strong); }
 .btn-lg { font-size: 1.05rem; padding: 1.08em 2.2em; }
 .btn-block { display: block; width: 100%; text-align: center; }
 .btn:disabled { opacity: 0.55; cursor: default; }
@@ -318,7 +322,7 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
   transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
 }
 .arrow-link svg { flex: none; transition: transform 0.24s var(--ease); }
-.arrow-link:hover { color: var(--almagra); border-bottom-color: var(--almagra); }
+.arrow-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .arrow-link:hover svg { transform: translate(2px, -2px); }
 
 /* ── Шапка ───────────────────────────────────────────────────────────────── */
@@ -326,7 +330,7 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 60;
-  background: rgba(255, 255, 255, 0.92);
+  background: color-mix(in srgb, var(--papel) 92%, transparent);
   backdrop-filter: saturate(1.1) blur(9px);
   border-bottom: 1px solid var(--linea);
   transition: transform 0.35s var(--ease);
@@ -354,7 +358,7 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
 
 .header-right { display: flex; align-items: center; gap: clamp(10px, 1.6vw, 20px); }
 .header-icon { display: flex; color: var(--tinta-2); transition: color 0.2s var(--ease); }
-.header-icon:hover { color: var(--almagra); }
+.header-icon:hover { color: var(--accent); }
 
 .nav-toggle {
   width: 40px; height: 34px;
@@ -375,12 +379,12 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
   font-size: 0.94rem;
   font-weight: 500;
   padding: 0.62em 1.35em;
-  background: var(--almagra);
-  color: #fff;
+  background: var(--accent);
+  color: var(--on-accent);
   border-radius: 9px;
   transition: background-color 0.22s var(--ease);
 }
-.request:hover { background: var(--almagra); }
+.request:hover { background: var(--accent-strong); }
 
 @media (max-width: 700px) {
   .header-inner { height: 64px; gap: 10px; }
@@ -429,15 +433,15 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
 .nav-list li:nth-child(3) a { transition-delay: 0.16s; }
 .nav-list li:nth-child(4) a { transition-delay: 0.21s; }
 .nav-list li:nth-child(5) a { transition-delay: 0.26s; }
-.nav-list a:hover, .nav-list a.active { color: var(--almagra); }
+.nav-list a:hover, .nav-list a.active { color: var(--accent); }
 .nav-aside-label { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tinta-3); margin-bottom: 0.9em; }
 .nav-aside-link { display: block; padding: 0.34em 0; color: var(--tinta-2); transition: color 0.2s var(--ease); }
-.nav-aside-link:hover { color: var(--almagra); }
+.nav-aside-link:hover { color: var(--accent); }
 .nav-bg { position: relative; overflow: hidden; }
 .nav-bg img { width: 100%; height: 100%; object-fit: cover; }
 .nav-bg::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to right, var(--cal), rgba(242, 242, 238, 0) 42%);
+  background: linear-gradient(to right, var(--cal), color-mix(in srgb, var(--cal) 0%, transparent) 42%);
 }
 @media (max-width: 860px) {
   .nav-overlay { grid-template-columns: 1fr; }
@@ -510,7 +514,7 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
   background-color: var(--papel);
   background-image: var(--grain);
   padding: clamp(28px, 3.4vw, 48px) clamp(24px, 3.4vw, 52px) clamp(24px, 2.6vw, 38px);
-  box-shadow: 1px 2px 0 rgba(27, 28, 26, 0.05);
+  box-shadow: 1px 2px 0 rgba(15, 37, 68, 0.05);
 }
 .cover-sheet::before {
   /* ярлык, торчащий из верхней кромки листа */
@@ -681,7 +685,7 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 .route { padding: clamp(24px, 2.6vw, 38px) clamp(20px, 2.4vw, 36px) clamp(24px, 2.6vw, 38px) 0; display: flex; flex-direction: column; }
 .route + .route { border-left: 1px solid var(--linea); padding-left: clamp(20px, 2.4vw, 36px); }
 .route-key { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tinta-3); margin-bottom: 1.1em; }
-.route.is-picked .route-key { color: var(--almagra); }
+.route.is-picked .route-key { color: var(--accent); }
 .route h3 { margin-bottom: 0.5em; }
 .route p { color: var(--tinta-2); }
 .route-meta {
@@ -703,11 +707,11 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
    он и есть левая колонка. Линия слева заполняется по мере прокрутки. */
 .steps { position: relative; padding-left: clamp(22px, 3vw, 40px); }
 .steps::before { content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 1px; background: var(--linea); }
-.steps-fill { position: absolute; left: 0; top: 6px; width: 1px; background: var(--almagra); transition: height 0.12s linear; }
+.steps-fill { position: absolute; left: 0; top: 6px; width: 1px; background: var(--accent); transition: height 0.12s linear; }
 .step { padding: clamp(20px, 2.4vw, 32px) 0; border-bottom: 1px solid var(--linea-2); display: grid; grid-template-columns: 180px 1fr; gap: clamp(16px, 2.4vw, 38px); }
 .step:last-child { border-bottom: 0; }
 .step-when { font-family: var(--serif); font-size: 1.24rem; line-height: 1.3; color: var(--tinta-2); transition: color 0.3s var(--ease); }
-.step.is-current .step-when { color: var(--almagra); }
+.step.is-current .step-when { color: var(--accent); }
 .step h3 { margin-bottom: 0.42em; }
 .step p { color: var(--tinta-2); }
 @media (max-width: 700px) { .step { grid-template-columns: 1fr; gap: 6px; } .step-when { font-size: 1.08rem; } }
@@ -791,7 +795,7 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   cursor: pointer;
   transition: color 0.2s var(--ease);
 }
-.faq-q:hover { color: var(--almagra); }
+.faq-q:hover { color: var(--accent); }
 .faq-q::after {
   content: '';
   flex: none;
@@ -812,7 +816,7 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   background-image: var(--grain);
   padding: clamp(24px, 3vw, 40px);
   border: 0;
-  box-shadow: inset 0 0 0 1px rgba(27, 28, 26, 0.07), 1px 2px 0 rgba(27, 28, 26, 0.045);
+  box-shadow: inset 0 0 0 1px rgba(15, 37, 68, 0.07), 1px 2px 0 rgba(15, 37, 68, 0.045);
 }
 .surface-paper .form-card, .bg-white .form-card, .bg-ink .form-card { background-color: var(--cal); }
 .field { margin-bottom: 16px; }
@@ -829,16 +833,50 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   transition: border-color 0.2s var(--ease);
 }
 .field textarea { min-height: 92px; resize: vertical; line-height: 1.5; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: 0; border-bottom-color: var(--almagra); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 0; border-bottom-color: var(--accent); }
 .field input::placeholder, .field textarea::placeholder { color: var(--tinta-3); }
 .field select { appearance: none; border-radius: 0; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23676961' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1.2 1.6 6 6.4l4.8-4.8'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 2px center; background-size: 11px; padding-right: 22px; }
-.req { color: var(--almagra); }
+.req { color: var(--accent); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .lead-form button[type='submit'] { margin-top: 10px; }
-.form-error { display: none; margin-top: 12px; font-size: 0.92rem; color: var(--almagra); }
+.field-hint { margin-top: 0.45em; font-size: 0.84rem; line-height: 1.4; color: var(--tinta-2); }
+.field input[aria-invalid='true'] { border-bottom-color: var(--error); box-shadow: 0 1px 0 var(--error); }
+
+/* Анкета на главной свёрнута: обязательное — имя и контакт, остальное по желанию */
+.form-more { margin: 4px 0 18px; border-top: 1px solid var(--linea); border-bottom: 1px solid var(--linea); }
+.form-more summary {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+  padding: 0.95em 0; cursor: pointer; list-style: none;
+  font-size: 0.95rem; font-weight: 500; color: var(--tinta);
+}
+.form-more summary::-webkit-details-marker { display: none; }
+.form-more summary::after { content: '+'; font-size: 1.2rem; line-height: 1; color: var(--accent); }
+.form-more[open] summary::after { content: '−'; }
+.form-more summary:hover { color: var(--accent); }
+.form-more-note { margin-left: auto; font-size: 0.8rem; font-weight: 400; color: var(--tinta-2); }
+.form-more-body { padding-bottom: 6px; }
+
+.form-error { display: none; margin-top: 12px; font-size: 0.95rem; font-weight: 500; line-height: 1.45; color: var(--error); }
 .form-error.show { display: block; }
+
+/* Запасной путь, если сервер не ответил */
+.form-fallback { margin-top: 16px; padding: 18px; border-radius: 12px; background: var(--cal); }
+.form-fallback-lead { font-size: 0.95rem; color: var(--tinta); margin-bottom: 14px; }
+.form-fallback-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.form-fallback-label { display: block; font-size: 0.84rem; color: var(--tinta-2); margin-bottom: 0.4em; }
+.form-fallback-text {
+  width: 100%; font: inherit; font-size: 0.9rem; line-height: 1.45; color: var(--tinta);
+  background: var(--papel); border: 1px solid var(--linea); border-radius: 8px; padding: 10px 12px; resize: vertical;
+}
+.form-fallback-copy {
+  margin-top: 8px; padding: 0.5em 0; background: none; border: 0; cursor: pointer;
+  font: inherit; font-size: 0.9rem; font-weight: 500; color: var(--accent);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.form-fallback-copy:hover { color: var(--accent-strong); }
 .form-note { margin-top: 14px; font-size: 0.84rem; color: var(--tinta-3); line-height: 1.45; }
 .form-ok { display: none; }
+.form-ok h3:focus { outline: none; }
 .form-ok.show { display: block; }
 
 /* ── Фотографии ──────────────────────────────────────────────────────────── */
@@ -862,10 +900,10 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom,
-    var(--cal) 0%, rgba(242,242,238,0.97) 5%, rgba(242,242,238,0.86) 10%, rgba(242,242,238,0.62) 15%,
-    rgba(242,242,238,0.3) 22%, rgba(242,242,238,0.12) 29%, rgba(242,242,238,0.12) 71%,
-    rgba(242,242,238,0.3) 78%, rgba(242,242,238,0.62) 85%, rgba(242,242,238,0.86) 90%,
-    rgba(242,242,238,0.97) 95%, var(--cal) 100%);
+    var(--cal) 0%, color-mix(in srgb, var(--cal) 97%, transparent) 5%, color-mix(in srgb, var(--cal) 86%, transparent) 10%, color-mix(in srgb, var(--cal) 62%, transparent) 15%,
+    color-mix(in srgb, var(--cal) 30%, transparent) 22%, color-mix(in srgb, var(--cal) 12%, transparent) 29%, color-mix(in srgb, var(--cal) 12%, transparent) 71%,
+    color-mix(in srgb, var(--cal) 30%, transparent) 78%, color-mix(in srgb, var(--cal) 62%, transparent) 85%, color-mix(in srgb, var(--cal) 86%, transparent) 90%,
+    color-mix(in srgb, var(--cal) 97%, transparent) 95%, var(--cal) 100%);
 }
 .band-text { max-width: 720px; position: relative; }
 /* Подсветка только под текстом: она гаснет задолго до кромок секции, поэтому
@@ -877,10 +915,10 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   z-index: -1;
   pointer-events: none;
   background: radial-gradient(72% 66% at 34% 50%,
-    rgba(242, 242, 238, 0.94) 0%, rgba(242, 242, 238, 0.9) 34%, rgba(242, 242, 238, 0.7) 54%,
-    rgba(242, 242, 238, 0.4) 72%, rgba(242, 242, 238, 0.15) 87%, rgba(242, 242, 238, 0) 100%);
+    color-mix(in srgb, var(--cal) 94%, transparent) 0%, color-mix(in srgb, var(--cal) 90%, transparent) 34%, color-mix(in srgb, var(--cal) 70%, transparent) 54%,
+    color-mix(in srgb, var(--cal) 40%, transparent) 72%, color-mix(in srgb, var(--cal) 15%, transparent) 87%, color-mix(in srgb, var(--cal) 0%, transparent) 100%);
 }
-.band-text h2, .band-text p { text-shadow: 0 1px 14px rgba(242, 242, 238, 0.9); }
+.band-text h2, .band-text p { text-shadow: 0 1px 14px color-mix(in srgb, var(--cal) 90%, transparent); }
 .band-line { font-family: var(--serif); font-size: clamp(1.5rem, 1rem + 2vw, 2.5rem); line-height: 1.22; margin: 0; max-width: 20em; }
 
 /* ── Карточки (блог, материалы) ──────────────────────────────────────────── */
@@ -899,7 +937,7 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   background-color: var(--papel);
   background-image: var(--grain);
   border: 0;
-  box-shadow: inset 0 0 0 1px rgba(27, 28, 26, 0.07), 1px 2px 0 rgba(27, 28, 26, 0.045);
+  box-shadow: inset 0 0 0 1px rgba(15, 37, 68, 0.07), 1px 2px 0 rgba(15, 37, 68, 0.045);
   padding: clamp(20px, 2.2vw, 30px);
   display: flex;
   flex-direction: column;
@@ -911,8 +949,8 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 .card-meta { font-size: 0.8rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--tinta-3); margin-bottom: 0.9em; }
 .card-cover { margin: calc(-1 * clamp(20px, 2.2vw, 30px)) calc(-1 * clamp(20px, 2.2vw, 30px)) clamp(16px, 2vw, 22px); }
 .card-cover img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-.card-link:hover { box-shadow: inset 0 0 0 1px rgba(156, 61, 43, 0.4), 1px 2px 0 rgba(27, 28, 26, 0.06); }
-.card-link:hover h3 { color: var(--almagra); }
+.card-link:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent), 1px 2px 0 rgba(15, 37, 68, 0.06); }
+.card-link:hover h3 { color: var(--accent); }
 
 /* ── Статья ──────────────────────────────────────────────────────────────── */
 .article-head { padding-top: 124px; }
@@ -922,14 +960,14 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 .prose h3 { margin-top: 1.4em; }
 .prose ul, .prose ol { padding-left: 1.15em; margin: 0 0 1.2em; }
 .prose li { margin-bottom: 0.5em; }
-.prose blockquote { margin: 1.6em 0; padding-left: 1.3em; border-left: 2px solid var(--almagra); color: var(--tinta-2); font-family: var(--serif); font-size: 1.16em; line-height: 1.5; }
+.prose blockquote { margin: 1.6em 0; padding-left: 1.3em; border-left: 2px solid var(--accent); color: var(--tinta-2); font-family: var(--serif); font-size: 1.16em; line-height: 1.5; }
 .prose img { margin: 1.6em 0; }
 .prose table { margin-bottom: 1.4em; }
 
 .pagination { display: flex; gap: 8px; margin-top: clamp(30px, 4vw, 50px); }
 .pagination a, .pagination .current { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid var(--linea); font-size: 0.95rem; }
 .pagination .current { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
-.pagination a:hover { border-color: var(--almagra); color: var(--almagra); }
+.pagination a:hover { border-color: var(--accent); color: var(--accent); }
 
 /* ── Подвал ──────────────────────────────────────────────────────────────────
    Не «четыре колонки под линейкой и копирайт». Имя набрано крупно и прижато
@@ -942,10 +980,10 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 .site-footer h4 { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tinta-3); margin-bottom: 1.1em; }
 .site-footer p { color: var(--tinta-2); font-size: 0.98rem; }
 .site-footer a:not(.pill) { display: block; padding: 0.3em 0; color: var(--tinta-2); transition: color 0.2s var(--ease); }
-.site-footer a:not(.pill):hover { color: var(--almagra); }
+.site-footer a:not(.pill):hover { color: var(--accent); }
 .pill-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 .pill { padding: 0.42em 1em; border: 1px solid var(--linea); font-size: 0.9rem; transition: border-color 0.2s var(--ease), color 0.2s var(--ease); }
-.pill:hover { border-color: var(--almagra); color: var(--almagra); }
+.pill:hover { border-color: var(--accent); color: var(--accent); }
 .footer-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: clamp(18px, 2vw, 26px) 0; border-top: 1px solid var(--linea); font-size: 0.85rem; color: var(--tinta-3); }
 .footer-mark {
   display: block;
@@ -953,7 +991,7 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   margin-top: clamp(14px, 2vw, 26px);
 }
 .footer-mark svg { width: 100%; height: auto; display: block; }
-.footer-mark path, .footer-mark text { fill: rgba(27, 28, 26, 0.09); }
+.footer-mark path, .footer-mark text { fill: rgba(15, 37, 68, 0.09); }
 
 /* ── Движение ────────────────────────────────────────────────────────────────
    Правило одно: содержимое видно всегда. Появление двигает только смещение,
@@ -1035,7 +1073,7 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   padding: 0.35em 0;
   transition: color 0.2s var(--ease);
 }
-.nav-inline a:hover { color: var(--almagra); }
+.nav-inline a:hover { color: var(--accent); }
 .nav-inline a.active { color: var(--tinta); }
 .nav-inline a.active::after {
   content: '';
@@ -1043,7 +1081,7 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
   left: 0; right: 0; bottom: -2px;
   height: 2px;
   border-radius: 2px;
-  background: var(--almagra);
+  background: var(--accent);
 }
 
 /* Бургер и полноэкранное меню — только там, где строка уже не помещается. */

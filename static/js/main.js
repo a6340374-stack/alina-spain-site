@@ -390,18 +390,21 @@ document.querySelectorAll('.lead-form').forEach(function (form) {
 // ── Кнопка-хвост ────────────────────────────────────────────────────────────
 // Показываем, когда основная кнопка первого экрана ушла вверх, и убираем,
 // когда на экране появилась сама форма: две одинаковые кнопки рядом мешают.
+// У подвала тоже убираем: там кнопка ложится поверх ссылок и имени.
 (function () {
   var dock = document.getElementById('cta-dock');
   if (!dock) return;
 
   var topActions = document.querySelector('.cover-actions');
   var form = document.getElementById('zayavka') || document.querySelector('.form-card');
+  var footer = document.querySelector('.site-footer');
   var pastTop = false;
   var formVisible = false;
+  var footerVisible = false;
 
   function apply() {
     dock.hidden = false;
-    dock.classList.toggle('is-on', pastTop && !formVisible);
+    dock.classList.toggle('is-on', pastTop && !formVisible && !footerVisible);
   }
 
   if ('IntersectionObserver' in window) {
@@ -418,6 +421,12 @@ document.querySelectorAll('.lead-form').forEach(function (form) {
         formVisible = e[0].isIntersecting;
         apply();
       }, { rootMargin: '0px 0px -10% 0px' }).observe(form);
+    }
+    if (footer) {
+      new IntersectionObserver(function (e) {
+        footerVisible = e[0].isIntersecting;
+        apply();
+      }).observe(footer);
     }
     apply();
   } else {

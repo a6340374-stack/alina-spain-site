@@ -513,6 +513,23 @@ h2.as-h3 { font-size: var(--fs-h3); line-height: 1.22; }
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
 }
+/* На широком экране портрет Алины — карточкой у правого края сетки,
+   частично под листом: фото приколото к делу. Размер и место не зависят
+   от ширины окна. Выбрано в /impeccable live (вариант «Кадр по сетке»),
+   для вертикального портрета рамка 4:5. */
+@media (min-width: 981px) {
+  .cover-photo {
+    right: max(24px, calc((100vw - 1240px) / 2));
+    bottom: auto;
+    top: 50%;
+    translate: 0 -50%;
+    width: 460px;
+    aspect-ratio: 4 / 5;
+    border-radius: 16px;
+    box-shadow: var(--tarjeta);
+  }
+  .cover-photo img { -webkit-mask-image: none; mask-image: none; object-position: 78% 36%; }
+}
 
 .cover-sheet {
   position: relative;
@@ -575,6 +592,7 @@ h2.as-h3 { font-size: var(--fs-h3); line-height: 1.22; }
   .cover { min-height: auto; padding: 104px 0 0; flex-direction: column; align-items: stretch; }
   .cover-inner { order: 1; }
   .cover-photo { order: 2; position: relative; width: 100%; margin-top: 26px; aspect-ratio: 16 / 10; }
+  .cover-photo img { object-position: 78% 36%; }
   /* Кадр гаснет и сверху, и снизу: иначе его нижняя кромка встаёт стыком
      к следующей секции, а это самый заметный признак вклеенной полосы. */
   .cover-photo img {
@@ -867,6 +885,14 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 .field-error { display: none; margin: 0.45em 0 0; font-size: 0.92rem; font-weight: 500; line-height: 1.45; color: var(--error); }
 .field-error.show { display: block; }
 
+/* Черновик: место под факты, которых пока нет («ждём Алину»). Такие страницы
+   не входят в статическую сборку, пока пометки не сняты. */
+.draft-note {
+  margin-top: 18px; padding: 12px 16px; border-radius: 10px;
+  border: 1px dashed #b7791f; background: #fdf6e7; color: #6b4a12;
+  font-size: 0.92rem; line-height: 1.45; max-width: var(--measure);
+}
+
 /* Запасной путь, если сервер не ответил */
 .form-fallback { margin-top: 16px; padding: 18px; border-radius: 12px; background: var(--cal); }
 .form-fallback-lead { font-size: 0.95rem; color: var(--tinta); margin-bottom: 14px; }
@@ -896,6 +922,8 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 .side-photo figcaption { margin-top: 0.85em; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tinta-3); }
 .side-photo.tall .pxframe { aspect-ratio: 3 / 4; }
 .side-photo.tall .pxframe img { height: 100%; object-fit: cover; }
+/* фото кабинета в высокой рамке: в кадре стол с папками, а не пустая стена */
+.side-photo.tall .pxframe img.office-shot { object-position: 72% 50%; }
 
 /* Широкая полоса с фотографией: кадр растворяется в побелке сверху и снизу,
    поэтому шва между секциями нет, а текст лежит на своей затемнённой подложке,

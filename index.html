@@ -24,7 +24,7 @@
      открывается не всегда, а страница не должна от этого зависеть. -->
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/static/fonts/alegreya-cyrillic-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/static/fonts/alegreya-sans-cyrillic-400-normal.woff2">
-<link rel="stylesheet" href="/static/css/style.css?v=-514955334">
+<link rel="stylesheet" href="/static/css/style.css?v=-360390212">
 
 <!-- Знак сайта: два листа дела со срезанным углом. Та же геометрия,
      что у кнопок и ярлыков внутри страницы. -->
@@ -157,291 +157,156 @@
   </div>
 </section>
 
-<!-- ═══ Обо мне ═══ -->
-<section id="kto-vedet">
-  <div class="wrap">
-    <div class="grid grid-2" style="align-items:start">
-      <figure class="side-photo tall sticky-figure" data-reveal>
-        <span class="pxframe" data-parallax="26">
-          <img class="office-shot" src="/static/img/office.jpg" alt="Кабинет в Малаге: свет сквозь жалюзи, папки с делами на столе" loading="lazy">
-        </span>
-        <figcaption>Кабинет · Малага</figcaption>
-      </figure>
-
-      <div data-reveal style="--reveal-delay:120ms">
-        <h2>Веду каждое дело <em>лично</em></h2>
-        
-        <p class="lead">
-          Меня зовут Алина Сагинбаева. Я живу в Испании 17 лет и работаю в Малаге.
-          Помогаю получать ВНЖ и веду каждое дело сама, а не передаю менеджеру.
-        </p>
-
-        <div class="fit-col yes" style="margin-top:2em">
-          <ul>
-            <li><b>17 лет в Испании, 500+ полученных ВНЖ.</b> Работала переводчиком при суде и знаю систему изнутри, а не по чужим гайдам</li>
-            <li><b>Я здесь, в Малаге.</b> Хожу в Extranjería лично, а не координирую процесс перепиской из другой страны</li>
-            <li><b>Знаю все программы.</b> Digital Nomad, StartUp, студенческий ВНЖ, Non Lucrativa, arraigo, воссоединение семьи</li>
-            <li><b>Берусь, если дело проходит.</b> Если не проходит, скажу сразу и предложу другой путь</li>
-          </ul>
-        </div>
-
-        <p style="margin-top:2em">
-          <a href="/o-mne" class="arrow-link">
-            Подробнее и кейсы
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 10.8 10.8 3.2M4.8 3.2h6v6"/></svg>
-          </a>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ Что даёт номад-виза ═══ -->
-<section class="surface-deep" id="komu">
+<!-- ═══ Две визы: Digital Nomad и StartUp ═══
+     Единственная тёмная секция на странице — по просьбе заказчика. Схема карточек
+     подсмотрена у конкурента, тексты свои: цифры те же, что на
+     /programmy-vnzh. Гарантий результата не обещаем. -->
+<section class="surface-ink" id="dlya-kogo">
   <div class="wrap">
     <div class="section-head" data-reveal>
-      <h2>Работаете удалённо — <em>почти всегда это номад-виза</em></h2>
-      <p class="lead">
-        Из семи путей к ВНЖ он подходит большинству, кто приходит ко мне: карту выдают
-        сразу на три года и сразу на всю семью. Подать можно из своей страны или уже
-        находясь в Испании — во втором случае годовую визу проходить не нужно.
-      </p>
+      <h2>Я считаю, что для 99% <em>лучшим решением будет:</em></h2>
     </div>
 
-    <div class="fit" data-stagger="120">
-      <div class="fit-col yes">
-        <h3>Что вы получаете</h3>
-        <ul>
-          <li><b>ВНЖ сразу на 3 года</b> при подаче из Испании через портал UGE</li>
-          <li>Решение за <b>20 рабочих дней</b> — это месяц, а не год ожидания</li>
-          <li>Супруг и дети идут <b>в той же заявке</b>, отдельные программы им не нужны</li>
-          <li>Налог <b>24% вместо прогрессивной шкалы до 47%</b> по «закону Бекхэма»</li>
-          <li>Эти годы идут в счёт: <b>ПМЖ через 5 лет</b>, гражданство через 10</li>
+    <div class="visa-cards" data-stagger="120">
+      <article class="visa-card">
+        <header class="visa-card-head">
+          <div>
+            <h3>Digital Nomad</h3>
+            <p class="visa-term">Решение ≈ 20 рабочих дней</p>
+          </div>
+          <p class="visa-for"><span class="visa-tag">Для кого</span> Удалёнщики и фрилансеры с&nbsp;иностранным доходом <b>от&nbsp;2&nbsp;849&nbsp;€ в&nbsp;месяц</b></p>
+        </header>
+        <ul class="visa-list">
+          <li>ВНЖ сразу на 3 года, вся семья в одной заявке</li>
+          <li>Дальше продление ещё на 2 года</li>
+          <li>Подать можно из Испании или из своей страны</li>
         </ul>
-      </div>
-      <div class="fit-col cond">
-        <h3>Что нужно подтвердить</h3>
-        <ul>
-          <li>Доход <b>от 2&nbsp;849&nbsp;€ в месяц</b> на заявителя (два SMI 2026 года). С супругом <b>≈&nbsp;3&nbsp;917&nbsp;€</b>, на каждого следующего члена семьи <b>+&nbsp;356&nbsp;€</b></li>
-          <li><b>80% дохода</b> приходит из-за пределов Испании, до 20% можно зарабатывать внутри страны</li>
-          <li>Заказчик или работодатель работает больше года, вы с ним — больше трёх месяцев</li>
-          <li>Высшее образование <b>или</b> три года опыта в профессии</li>
+        <a href="#zayavka" class="btn btn-lg btn-block">Хочу переехать как digital nomad</a>
+      </article>
+
+      <article class="visa-card">
+        <header class="visa-card-head">
+          <div>
+            <h3>StartUp</h3>
+            <p class="visa-term">Через одобрение ENISA</p>
+          </div>
+          <p class="visa-for"><span class="visa-tag">Для кого</span> Для тех, у кого есть идея бизнеса в&nbsp;Испании. Не уверены, что она «стартап»? Пришлите описание — оценю шансы.</p>
+        </header>
+        <ul class="visa-list">
+          <li>ВНЖ предпринимателя, семья переезжает вместе с вами</li>
+          <li>Работать и вести проект в Испании можно сразу</li>
+          <li>Сначала одобряют проект, потом подаёте на ВНЖ — едете уже с ответом</li>
         </ul>
-      </div>
-    </div>
-
-    <p style="margin-top:clamp(28px,3vw,44px)">
-      Если ваш случай из оставшихся — доход ниже порога, заказчики испанские, учёба,
-      пассивный доход, — скажу об этом на разборе и назову программу, которая подходит.
-      Все семь путей <a href="/programmy-vnzh">разобраны здесь</a>.
-    </p>
-  </div>
-</section>
-
-<!-- ═══ Два пути подачи ═══ -->
-<section class="surface-paper" id="puti">
-  <div class="wrap">
-    <div class="tab-rule"><span class="tab">Как подаваться</span></div>
-    <div class="section-head" data-reveal>
-      <h2>Два способа получить ВНЖ, и разница <em>принципиальная</em></h2>
-    </div>
-
-    <div class="routes">
-      <div class="route" data-reveal>
-        <div class="route-key">Вариант 1</div>
-        <h3>Через консульство в стране проживания</h3>
-        <p>
-          Получаете визу типа D на год, въезжаете, и уже в Испании в течение года подаёте на ВНЖ.
-          Дольше, зато подаётесь, не выезжая из дома.
-        </p>
-        <div class="route-meta">Срок рассмотрения <b>около 30 дней</b></div>
-      </div>
-      <div class="route is-picked" data-reveal style="--reveal-delay:110ms">
-        <div class="route-key">Вариант 2 · чаще рекомендую</div>
-        <h3>Через портал UGE, находясь в Испании</h3>
-        <p>
-          Приезжаете как турист, подаёте электронно и сразу получаете ВНЖ на три года,
-          минуя годовую визу.
-        </p>
-        <div class="route-meta">Срок рассмотрения <b>20 рабочих дней</b></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══ Решения миграционной службы ═══ -->
-
-<section id="resheniya">
-  <div class="wrap">
-    <div class="tab-rule"><span class="tab">Результаты</span></div>
-    <div class="section-head" data-reveal>
-      <h2>Решения, а не <em class="mark">обещания</em></h2>
-      <p class="lead">Дела, доведённые до положительного решения. Персональные данные клиентов закрыты.</p>
-    </div>
-
-    <div class="dossier">
-      
-      <article class="case" data-reveal>
-        <div>
-          
-          <span class="case-badge">Малага · повторная подача</span>
-        </div>
-        <div>
-          <h3><span class="resolved" aria-hidden="true"></span><span>Отказ → положительное решение</span></h3>
-          <p>Клиентка обратилась ко мне, уже получив отказ. Разобрали основания, пересобрали пакет документов и подали повторно. Результат — положительное решение миграционной службы Малаги.</p>
-        </div>
+        <a href="#zayavka" class="btn btn-lg btn-block">Хочу переехать по StartUp</a>
       </article>
-      
-      <article class="case" data-reveal>
-        <div>
-          
-          <span class="case-badge">Легализация по оседлости</span>
-        </div>
-        <div>
-          <h3><span class="resolved" aria-hidden="true"></span><span>Arraigo sociolaboral (DT 5) — одобрено</span></h3>
-          <p>Легализация через трудовой договор. Положительное решение миграционной службы Малаги.</p>
-        </div>
-      </article>
-      
-      <article class="case" data-reveal>
-        <div>
-          
-          <span class="case-badge">Малага · 1 неделя</span>
-        </div>
-        <div>
-          <h3><span class="resolved" aria-hidden="true"></span><span>Arraigo socioformativo — одобрено за неделю</span></h3>
-          <p>Легализация через обучение. Рассмотрение заняло всего одну неделю.</p>
-        </div>
-      </article>
-      
-      <article class="case" data-reveal>
-        <div>
-          
-          <span class="case-badge">Гражданство</span>
-        </div>
-        <div>
-          <h3><span class="resolved" aria-hidden="true"></span><span>Гражданство Испании — положительное решение</span></h3>
-          <p>Полное сопровождение процедуры получения гражданства до положительного решения.</p>
-        </div>
-      </article>
-      
     </div>
   </div>
 </section>
 
-
-<!-- ═══ Отзывы ═══ -->
-
-<section class="surface-deep" id="otzyvy">
+<!-- ═══ Преимущества обеих виз ═══
+     Вид карточек — по образцу, который прислал заказчик. Факты по номад-визе
+     те же, что на /programmy-vnzh; по StartUp (закон Бекхэма для предпринимателей) —
+     Ley 28/2022, сверить с Алиной до публикации. -->
+<section class="surface-paper" id="preimushchestva">
   <div class="wrap">
-    <div class="tab-rule"><span class="tab">Отзывы</span></div>
-    <div class="quotes" data-stagger="120">
-      
-      <blockquote class="review">
-        <p>Хотим выразить благодарность Алине за помощь с оформлением ВНЖ Испании. Алина помогла нам собрать все необходимые документы, сопровождала нас на каждом этапе заявки и коммуницировала с госорганами (миграционной службой) по нашему кейсу.</p>
-        <div class="review-author">Арман</div>
-        <div class="review-meta">ВНЖ Испании</div>
-      </blockquote>
-      
-      <blockquote class="review">
-        <p>От всей души хочу поблагодарить Алину за помощь с легализацией моей мамы в Испании. С самого начала было ощущение, что ты в надёжных руках — всё было организовано быстро, чётко и без лишнего стресса.</p>
-        <div class="review-author">Ирина Фрайдл</div>
-        <div class="review-meta">Легализация родителя</div>
-      </blockquote>
-      
+    <div class="section-head center" data-reveal>
+      <h2>Что дают визы Digital Nomad и StartUp</h2>
     </div>
-    
-    <p style="margin-top:clamp(28px,3vw,42px)">
-      <a class="arrow-link" href="https://t.me/neiro_ufa">
-        Все отзывы в Telegram
+
+    <ul class="adv-grid" data-stagger="90">
+      <li class="adv-card">
+        <h3>ВНЖ сразу на 3&nbsp;года</h3>
+        <p>Без годовой карты и ежегодных продлений. По номад-визе решение за 20 рабочих дней</p>
+      </li>
+      <li class="adv-card">
+        <h3>Вся семья вместе</h3>
+        <p>Супруг и дети получают ВНЖ вместе с вами, отдельные программы им не нужны</p>
+      </li>
+      <li class="adv-card">
+        <h3>Налог 24%</h3>
+        <p>По «закону Бекхэма» вместо прогрессивной шкалы до 47%. Действует для обеих виз</p>
+      </li>
+      <li class="adv-card">
+        <h3>Работа из Испании</h3>
+        <p>Digital Nomad — на иностранных заказчиков, до 20% дохода можно получать в Испании. StartUp — свой проект здесь</p>
+      </li>
+      <li class="adv-card">
+        <h3>Путь к ПМЖ</h3>
+        <p>Годы идут в счёт: ПМЖ через 5 лет, гражданство через 10</p>
+      </li>
+    </ul>
+
+    <p class="adv-cta"><a href="#zayavka" class="btn btn-lg">Получить консультацию</a></p>
+  </div>
+</section>
+
+<!-- ═══ Как проходит работа ═══
+     Тёмная лента из пяти шагов — по образцу заказчика. Главный страх ниши:
+     «оплатил и перестали отвечать», поэтому порядок описан целиком. -->
+<section class="surface-ink" id="process">
+  <div class="wrap">
+    <div class="section-head center" data-reveal>
+      <h2>Как проходит работа</h2>
+    </div>
+
+    <ol class="path" data-stagger="110">
+      <li class="path-step">
+        <span class="path-num">1/5</span>
+        <h3>Разбор ситуации</h3>
+        <p>20 минут, бесплатно. Честно скажу, проходите ли вы и по какой программе</p>
+      </li>
+      <li class="path-step">
+        <span class="path-num">2/5</span>
+        <h3>Список документов</h3>
+        <p>Договор и чек-лист под ваш случай: что собрать, где, какие апостили и переводы</p>
+      </li>
+      <li class="path-step">
+        <span class="path-num">3/5</span>
+        <h3>Проверка</h3>
+        <p>Читаю каждый документ сама до подачи — здесь рождается большинство отказов</p>
+      </li>
+      <li class="path-step">
+        <span class="path-num">4/5</span>
+        <h3>Подача</h3>
+        <p>Электронно через UGE, ваше присутствие не нужно. Решение за 20 рабочих дней</p>
+      </li>
+      <li class="path-step">
+        <span class="path-num">5/5</span>
+        <h3>Карта резидента</h3>
+        <p>Отпечатки, TIE, NIE, empadronamiento. На связи, пока карта не у вас в руках</p>
+      </li>
+    </ol>
+
+    <p class="path-cta"><a href="#zayavka" class="btn btn-lg">Получить консультацию</a></p>
+  </div>
+</section>
+
+<!-- ═══ Истории успехов ═══
+     Скриншоты постов канала «Отзывы, Алина | ВНЖ» от 29.09.2026, как есть.
+     На превью PDF в reshenie-otzyv.png закрыто имя заявителя. -->
+<section class="surface-paper" id="istorii">
+  <div class="wrap">
+    <div class="section-head center" data-reveal>
+      <h2>Истории успехов моих клиентов</h2>
+    </div>
+
+    <div class="shots">
+      <a class="shot" href="/static/img/istorii/socioformativo-nedelya.png" target="_blank" rel="noopener"><img src="/static/img/istorii/socioformativo-nedelya.png" alt="Решение по arraigo socioformativo за одну неделю" loading="lazy"></a>
+      <a class="shot" href="/static/img/istorii/sociolaboral-posle-otkaza.png" target="_blank" rel="noopener"><img src="/static/img/istorii/sociolaboral-posle-otkaza.png" alt="Решение по arraigo sociolaboral после отказа, за месяц" loading="lazy"></a>
+      <a class="shot" href="/static/img/istorii/sociolaboral-kontrakt.png" target="_blank" rel="noopener"><img src="/static/img/istorii/sociolaboral-kontrakt.png" alt="Решение по arraigo sociolaboral по контракту на 20 часов" loading="lazy"></a>
+      <a class="shot" href="/static/img/istorii/regulyarizaciya-2026.png" target="_blank" rel="noopener"><img src="/static/img/istorii/regulyarizaciya-2026.png" alt="Решение по регуляризации 2026 для гражданина Марокко" loading="lazy"></a>
+      <a class="shot" href="/static/img/istorii/grazhdanstvo.png" target="_blank" rel="noopener"><img src="/static/img/istorii/grazhdanstvo.png" alt="Решение о предоставлении гражданства Испании" loading="lazy"></a>
+      <a class="shot" href="/static/img/istorii/reshenie-otzyv.png" target="_blank" rel="noopener"><img src="/static/img/istorii/reshenie-otzyv.png" alt="Клиентка благодарит в день получения решения" loading="lazy"></a>
+      <a class="shot" href="/static/img/istorii/otzyv-irina.png" target="_blank" rel="noopener"><img src="/static/img/istorii/otzyv-irina.png" alt="Отзыв Ирины о легализации мамы" loading="lazy"></a>
+      <a class="shot" href="/static/img/istorii/otzyv-arman.png" target="_blank" rel="noopener"><img src="/static/img/istorii/otzyv-arman.png" alt="Отзыв Армана об оформлении ВНЖ" loading="lazy"></a>
+    </div>
+
+    <p class="story-more">
+      <a class="arrow-link" href="https://t.me/+QCcWpmSkvnI2ZjU0" target="_blank" rel="noopener">
+        Все отзывы и решения в Telegram
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 10.8 10.8 3.2M4.8 3.2h6v6"/></svg>
       </a>
     </p>
-    
-  </div>
-</section>
-
-
-<!-- ═══ Как проходит работа ═══ -->
-<section id="process">
-  <div class="wrap narrow">
-    <div class="tab-rule"><span class="tab">Процесс</span></div>
-    <div class="section-head" data-reveal>
-      <h2>Что происходит после того, как вы <em>написали</em></h2>
-      <p class="lead">Слева видно, на каком вы этапе. Главный страх в этой нише звучит так: «оплатил и перестали отвечать». Поэтому порядок описан целиком.</p>
-    </div>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-when">20 минут, бесплатно</div>
-        <div>
-          <h3>Разбор вашей ситуации</h3>
-          <p>Смотрим доход, состав семьи, где вы сейчас. Говорю честно: проходите вы или нет и по какой программе.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-when">Договор и чек-лист</div>
-        <div>
-          <h3>Персональный список документов</h3>
-          <p>Присылаю список ровно под ваш случай: что собрать, где, в каком порядке, какие нужны апостили и присяжные переводы.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-when">Проверка до подачи</div>
-        <div>
-          <h3>Я читаю каждый документ сама</h3>
-          <p>Именно здесь рождается большинство отказов: не в заявителе, а в неверно подтверждённом доходе и недостающих бумагах.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-when">20 рабочих дней</div>
-        <div>
-          <h3>Подача и рассмотрение</h3>
-          <p>Подаём электронно через UGE, ваше присутствие не требуется. Отслеживаю статус и отвечаю на запросы службы.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-when">До карточки на руках</div>
-        <div>
-          <h3>Отпечатки, TIE, NIE, empadronamiento</h3>
-          <p>Остаюсь на связи до момента, когда карта резидента физически у вас. Это часть работы, а не отдельная услуга.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ Стоимость ═══ -->
-<section class="surface-paper" id="cena">
-  <div class="wrap narrow">
-    <div class="section-head" data-reveal>
-      <h2>Сколько это стоит</h2>
-    </div>
-
-    <div class="price-row" data-reveal>
-      <div>
-        <div class="price-num">от 1 200 €</div>
-        <div class="price-cap">сопровождение основного заявителя</div>
-      </div>
-      <div>
-        <div class="price-num">от 500 €</div>
-        <div class="price-cap">за каждого члена семьи</div>
-      </div>
-    </div>
-
-    <p>
-      Итоговая сумма зависит от программы и сложности дела: легализация через arraigo,
-      воссоединение семьи или оспаривание отказа считаются отдельно.
-    </p>
-    <p>
-      <strong>Точную цифру назову на разборе</strong>, после того как посмотрю вашу ситуацию.
-      Называть цену вслепую, не зная дохода, состава семьи и статуса, было бы нечестно.
-    </p>
-    <div class="price-note">
-      Отдельно оплачиваются госпошлины, присяжные переводы, апостили и медицинская страховка.
-      Я не закладываю их в свой прайс и не беру на них наценку.
-    </div>
   </div>
 </section>
 
@@ -638,112 +503,6 @@
   </div>
 </section>
 
-<!-- ═══ Семья ═══ -->
-<section class="surface-deep" id="semya">
-  <div class="wrap">
-    <div class="grid grid-2" style="align-items:start;gap:clamp(26px,4vw,70px)">
-      <div data-reveal>
-        <h2>Вы переезжаете <em>не один</em></h2>
-        <p class="lead">
-          Больше половины моих клиентов едут семьёй: с детьми, с супругом, иногда с пожилыми
-          родителями. Это отдельная история, и в ней много вопросов, на которые в интернете
-          нет честных ответов.
-        </p>
-        <figure class="side-photo" style="margin-top:2em">
-          <span class="pxframe" data-parallax="26">
-            <img src="/static/img/family-plaza.jpg" alt="Дети на площади в испанском городе" loading="lazy">
-          </span>
-        </figure>
-      </div>
-
-      <div class="topics" data-reveal style="--reveal-delay:110ms">
-        <div class="topic">
-          <h3>Сколько стоит ребёнок</h3>
-          <p>Реально 400–500 € в месяц: питание, школа, кружки, лагеря. Плюс есть пособие до 200 €, о котором мало кто знает.</p>
-        </div>
-        <div class="topic">
-          <h3>Какой город выбрать</h3>
-          <p>Валенсия, Малага, Аликанте. У каждого свои плюсы по школам, климату и инфраструктуре.</p>
-        </div>
-        <div class="topic">
-          <h3>Родители на иждивении</h3>
-          <p>Их тоже можно перевезти. Я вела такие дела, включая легализацию тех, кто уже находится в Испании.</p>
-        </div>
-        <div class="topic">
-          <h3>Роды в Испании и паспорт ЕС</h3>
-          <p>Что это реально даёт, а что миф. Разбираю без розовых обещаний.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ Материалы ═══ -->
-
-<section>
-  <div class="wrap">
-    <div class="section-head" data-reveal>
-      <h2>Материалы, которые помогут <em>до</em> разговора со мной</h2>
-    </div>
-    <div class="grid grid-2" data-stagger="110">
-      
-      <a class="card card-link" href="/materialy/spravochnik-vnzh-ispanii-2026">
-        <h3>Полный справочник ВНЖ Испании 2026</h3>
-        <p>Все семь программ с требованиями, документами и сроками — в одном файле.</p>
-      </a>
-      
-      <a class="card card-link" href="/materialy/chek-list-dokumentov-nomad">
-        <h3>Чек-лист документов для номад-визы</h3>
-        <p>Одна страница: что собрать, где, в каком порядке и с какими апостилями.</p>
-      </a>
-      
-    </div>
-  </div>
-</section>
-
-
-<!-- ═══ Блог ═══ -->
-
-<section class="surface-deep">
-  <div class="wrap">
-    <div class="tab-rule"><span class="tab">Блог</span></div>
-    <div class="section-head" data-reveal>
-      <h2>Разбираю то, о чём молчат агентства</h2>
-    </div>
-    <div class="grid grid-3" data-stagger="110">
-      
-      <a class="card card-link" href="/blog/skolko-nuzhno-zarabatyvat-dlya-nomad-vizy-2026">
-        
-        <div class="card-meta">2 августа 2026</div>
-        <h3>Сколько нужно зарабатывать для номад-визы Испании в 2026 году</h3>
-        <p>Разбираю, откуда берётся цифра 2 849 €, как считается доход на семью и какие источники дохода миграционная служба принимает, а какие заворачивает.</p>
-      </a>
-      
-      <a class="card card-link" href="/blog/regulyarizaciya-2026-zakrylas-chto-delat">
-        
-        <div class="card-meta">21 августа 2026</div>
-        <h3>Регуляризация 2026 закрылась 30 июня. Что делать, если не успели</h3>
-        <p>Приём заявлений шёл с 16 апреля по 30 июня 2026 года, продления не будет. Разбираю, какие пути легализации остались открытыми и почему arraigo для многих оказался выгоднее.</p>
-      </a>
-      
-      <a class="card card-link" href="/blog/nomad-viza-ili-non-lucrativa">
-        
-        <div class="card-meta">21 августа 2026</div>
-        <h3>Номад-виза или Non Lucrativa: как выбрать и не потерять полгода</h3>
-        <p>Две программы путают постоянно. Разница не в сумме дохода, а в его происхождении — и на этом теряют время чаще всего.</p>
-      </a>
-      
-    </div>
-    <p style="margin-top:clamp(28px,3vw,42px)">
-      <a class="arrow-link" href="/blog">
-        Все статьи
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.2 10.8 10.8 3.2M4.8 3.2h6v6"/></svg>
-      </a>
-    </p>
-  </div>
-</section>
-
-
 
 <footer class="site-footer">
   <div class="wrap">
@@ -800,7 +559,19 @@
 </div>
 
 
-<script src="/static/js/main.js?v=-514955334"></script>
+<!-- Приглашение в Telegram-канал: всплывает через 25 секунд на странице,
+     не чаще раза в неделю (помним в localStorage). Не модальное — страницу
+     не блокирует, закрывается крестиком или Esc. -->
+<aside class="tg-invite" id="tg-invite" role="dialog" aria-labelledby="tg-invite-title" hidden>
+  <button type="button" class="tg-invite-close" aria-label="Закрыть">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8"/></svg>
+  </button>
+  <p class="tg-invite-title" id="tg-invite-title">Telegram-канал Алины</p>
+  <p class="tg-invite-text">Решения клиентов и новости о ВНЖ в Испании — подписывайтесь, чтобы не пропустить.</p>
+  <a class="btn tg-invite-btn" href="https://t.me/+QCcWpmSkvnI2ZjU0" target="_blank" rel="noopener">Перейти в канал</a>
+</aside>
+
+<script src="/static/js/main.js?v=-360390212"></script>
 </body>
 </html>
 

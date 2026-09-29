@@ -24,7 +24,7 @@
      открывается не всегда, а страница не должна от этого зависеть. -->
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/static/fonts/alegreya-cyrillic-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/static/fonts/alegreya-sans-cyrillic-400-normal.woff2">
-<link rel="stylesheet" href="/static/css/style.css?v=-514955334">
+<link rel="stylesheet" href="/static/css/style.css?v=-360390212">
 
 <!-- Знак сайта: два листа дела со срезанным углом. Та же геометрия,
      что у кнопок и ярлыков внутри страницы. -->
@@ -262,7 +262,19 @@
 </div>
 
 
-<script src="/static/js/main.js?v=-514955334"></script>
+<!-- Приглашение в Telegram-канал: всплывает через 25 секунд на странице,
+     не чаще раза в неделю (помним в localStorage). Не модальное — страницу
+     не блокирует, закрывается крестиком или Esc. -->
+<aside class="tg-invite" id="tg-invite" role="dialog" aria-labelledby="tg-invite-title" hidden>
+  <button type="button" class="tg-invite-close" aria-label="Закрыть">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 3l8 8M11 3l-8 8"/></svg>
+  </button>
+  <p class="tg-invite-title" id="tg-invite-title">Telegram-канал Алины</p>
+  <p class="tg-invite-text">Решения клиентов и новости о ВНЖ в Испании — подписывайтесь, чтобы не пропустить.</p>
+  <a class="btn tg-invite-btn" href="https://t.me/+QCcWpmSkvnI2ZjU0" target="_blank" rel="noopener">Перейти в канал</a>
+</aside>
+
+<script src="/static/js/main.js?v=-360390212"></script>
 </body>
 </html>
 

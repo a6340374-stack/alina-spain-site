@@ -211,6 +211,69 @@ section.tight { padding-block: clamp(42px, 5vw, 80px); }
 .surface-paper, .bg-white, .bg-ink { background-color: var(--papel); background-image: var(--grain); }
 .surface-deep, .bg-sand { background-color: var(--cal-deep); background-image: var(--grain); }
 
+/* Единственная тёмная поверхность: чернила вместо побелки. Только для блока
+   «Кому подходит» на главной — узнать себя сразу после обложки. */
+.surface-ink { background-color: var(--tinta); background-image: var(--grain); color: #fff; }
+.surface-ink .lead { color: rgba(255, 255, 255, 0.78); }
+.surface-ink a { color: #fff; }
+/* Заголовок блока виз — одной строкой, выделенная часть в плашке того же
+   кегля: крупнее она не помещается в строку и рвётся на две плашки. */
+.surface-ink .section-head { max-width: none; }
+.surface-ink h2 { line-height: 1.24; }
+.surface-ink h2 em {
+  color: #fff;
+  background: var(--accent);
+  padding: 0.04em 0.3em 0.1em;
+  border-radius: 10px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@media (min-width: 900px) {
+  .surface-ink h2 em { white-space: nowrap; }
+}
+
+.visa-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(18px, 2vw, 28px);
+}
+.visa-card {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2vw, 28px);
+  background: var(--papel);
+  color: var(--tinta);
+  border-radius: 14px;
+  padding: clamp(24px, 3vw, 44px);
+}
+.visa-card-head { display: grid; gap: 14px; }
+.visa-card h3 { font-size: clamp(2rem, 1.5rem + 1.6vw, 2.75rem); color: var(--tinta); margin: 0 0 0.2em; }
+.visa-term { margin: 0; color: var(--accent); font-weight: 500; }
+.visa-for { margin: 0; max-width: var(--measure); color: var(--tinta-2); line-height: 1.5; }
+.visa-for b { color: var(--tinta); font-weight: 700; }
+.visa-tag {
+  display: inline-block;
+  margin-right: 0.35em;
+  padding: 0.12em 0.55em;
+  border-radius: 6px;
+  background: var(--marker);
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+.visa-list { list-style: none; margin: 0; padding: 0; flex: 1; }
+.visa-list li { position: relative; padding: 0.7em 0 0.7em 1.5em; border-bottom: 1px solid var(--linea-2); line-height: 1.5; }
+.visa-list li:last-child { border-bottom: 0; }
+.visa-list li::before {
+  content: ''; position: absolute; left: 0; top: 1.28em;
+  width: 7px; height: 7px; border-radius: 2px; background: var(--accent);
+}
+.visa-card .btn { margin-top: auto; }
+
+@media (max-width: 820px) {
+  .visa-cards { grid-template-columns: 1fr; }
+}
+}
+
 /* ── Мелкая типографика ──────────────────────────────────────────────────── */
 .lead { font-size: var(--fs-lead); line-height: 1.6; color: var(--tinta-2); }
 .muted { color: var(--tinta-3); }
@@ -330,6 +393,130 @@ h2.as-h3 { font-size: var(--fs-h3); line-height: 1.22; }
 .arrow-link svg { flex: none; transition: transform 0.24s var(--ease); }
 .arrow-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .arrow-link:hover svg { transform: translate(2px, -2px); }
+
+/* Карточки преимуществ: 3 + 2 по центру, галочка тем же штрихом, что в
+   списках «подходит» — нарисованная, а не из набора иконок. */
+.adv-grid {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(16px, 2vw, 26px);
+  max-width: 1160px;
+}
+.adv-card {
+  flex: 0 1 calc((100% - 2 * clamp(16px, 2vw, 26px)) / 3);
+  min-width: 260px;
+  background: var(--papel);
+  border-radius: 18px;
+  box-shadow: var(--tarjeta), inset 0 0 0 1px var(--linea-2);
+  padding: clamp(24px, 2.6vw, 36px);
+}
+.adv-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  margin: 0 0 0.8em;
+}
+.adv-card h3::before {
+  content: '';
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fff' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 8.6 6.1 12.8 14.4 2.6'/%3E%3C/svg%3E") center / 22px no-repeat;
+}
+.adv-card p { margin: 0; color: var(--tinta-2); line-height: 1.55; }
+.wrap > .adv-cta { max-width: none; margin: clamp(32px, 3.6vw, 52px) 0 0; text-align: center; }
+@media (max-width: 620px) {
+  .adv-cta .btn { display: block; }
+}
+@media (max-width: 900px) {
+  .adv-card { flex-basis: calc((100% - clamp(16px, 2vw, 26px)) / 2); }
+}
+@media (max-width: 620px) {
+  .adv-card { flex-basis: 100%; min-width: 0; }
+}
+
+/* Лента шагов на тёмном фоне: номер в круге, пунктир до следующего круга */
+.path {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(18px, 2.2vw, 32px);
+}
+.path-step { position: relative; }
+.path-num {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.85);
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 1.3rem;
+}
+/* пунктир от круга до следующего шага */
+.path-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 32px;
+  left: 80px;
+  right: calc(-1 * clamp(18px, 2.2vw, 32px) + 16px);
+  border-top: 2px dotted rgba(255, 255, 255, 0.55);
+}
+.path-step h3 { color: #fff; font-size: var(--fs-h3); margin-bottom: 0.5em; }
+.path-step p { margin: 0; color: rgba(255, 255, 255, 0.78); line-height: 1.55; }
+.wrap > .path-cta { max-width: none; margin: clamp(40px, 4.4vw, 64px) 0 0; text-align: center; }
+.surface-ink .path-cta .btn { background: var(--accent); color: var(--on-accent); }
+.surface-ink .path-cta .btn:hover { background: #fff; color: var(--tinta); }
+
+@media (max-width: 980px) {
+  .path { grid-template-columns: 1fr; gap: 0; }
+  .path-step { display: grid; grid-template-columns: 64px 1fr; column-gap: 20px; padding-bottom: 30px; }
+  .path-num { grid-row: 1 / 3; margin: 0; }
+  .path-step h3 { align-self: end; margin-top: 0.5em; }
+  .path-step p { grid-column: 2; }
+  .path-step:not(:last-child)::after { top: 72px; bottom: 6px; left: 31px; right: auto; border-top: 0; border-left: 2px dotted rgba(255, 255, 255, 0.55); }
+}
+@media (max-width: 620px) {
+  .path-cta .btn { display: block; }
+}
+
+/* Истории успехов: скриншоты постов канала отзывов, кладкой в колонки */
+.shots { columns: 3 300px; column-gap: clamp(16px, 2vw, 26px); max-width: 1160px; margin: 0 auto; }
+.shot {
+  display: block;
+  break-inside: avoid;
+  margin-bottom: clamp(16px, 2vw, 26px);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--papel);
+  box-shadow: var(--tarjeta), inset 0 0 0 1px var(--linea-2);
+  transition: transform 0.25s var(--ease);
+}
+.shot img { display: block; width: 100%; height: auto; }
+.shot:hover { transform: translateY(-2px); }
+.wrap > .story-more { max-width: none; text-align: center; margin: clamp(20px, 2.4vw, 36px) 0 0; }
+
+/* Ссылка-плашка: заметнее обычной стрелки, но тише главной кнопки записи */
+.arrow-link.link-chip {
+  font-size: 1.2rem;
+  color: var(--accent-strong);
+  background: var(--marker);
+  padding: 0.75em 1.5em;
+  border: 0;
+  border-radius: 10px;
+  transition: background 0.2s var(--ease);
+}
+.arrow-link.link-chip:hover { color: var(--accent-strong); background: #c9ddf8; }
 
 /* ── Шапка ───────────────────────────────────────────────────────────────── */
 .site-header {
@@ -603,7 +790,7 @@ h2.as-h3 { font-size: var(--fs-h3); line-height: 1.22; }
   }
   /* Следующая секция на узком экране начинается с того же тона, что стена,
      чтобы растворившийся низ кадра не оказался на другом цвете. */
-  .cover + section { background-color: var(--cal); }
+  .cover + section:not(.surface-ink) { background-color: var(--cal); }
   .cover-inner { display: flex; flex-direction: column; }
   .cover-sheet { max-width: none; }
 }
@@ -1163,4 +1350,48 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 }
 @media (prefers-reduced-motion: reduce) {
   .cta-dock { transition: none; }
+}
+
+/* Приглашение в Telegram-канал. Слева внизу: справа живёт кнопка записи. */
+.tg-invite {
+  position: fixed;
+  left: clamp(12px, 2vw, 28px);
+  bottom: clamp(12px, 2vw, 28px);
+  z-index: 60;
+  width: min(360px, calc(100vw - 24px));
+  background: var(--tinta);
+  color: #fff;
+  border-radius: 16px;
+  padding: 24px 24px 22px;
+  box-shadow: 0 18px 48px -16px rgba(15, 37, 68, 0.55);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.tg-invite.is-on { opacity: 1; transform: none; }
+.tg-invite-title { font-family: var(--serif); font-size: 1.3rem; line-height: 1.2; margin: 0 28px 0.45em 0; }
+.tg-invite-text { margin: 0 0 1.1em; color: rgba(255, 255, 255, 0.78); line-height: 1.5; font-size: 0.98rem; }
+.tg-invite-btn { display: block; text-align: center; }
+.tg-invite-btn:hover { background: #fff; color: var(--tinta); }
+.tg-invite-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+.tg-invite-close:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+@media (max-width: 620px) {
+  /* на телефоне кнопка записи во всю ширину снизу — поднимаемся над ней */
+  .tg-invite { left: 12px; right: 12px; width: auto; bottom: 92px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tg-invite { transition: none; }
 }

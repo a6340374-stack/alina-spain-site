@@ -453,3 +453,32 @@ document.querySelectorAll('a[href="#zayavka"]').forEach(function (link) {
     dock.classList.add('is-on');
   }
 })();
+
+// Приглашение в Telegram-канал: через 25 секунд, не чаще раза в неделю.
+// Хранилище может быть недоступно (приватный режим) — тогда просто показываем.
+(function () {
+  var box = document.getElementById('tg-invite');
+  if (!box) return;
+  var KEY = 'tgInviteClosedAt';
+  var WEEK = 7 * 24 * 60 * 60 * 1000;
+  var closedAt = 0;
+  try { closedAt = parseInt(localStorage.getItem(KEY), 10) || 0; } catch (e) {}
+  if (Date.now() - closedAt < WEEK) return;
+
+  function close() {
+    box.classList.remove('is-on');
+    setTimeout(function () { box.hidden = true; }, 250);
+    document.removeEventListener('keydown', onKey);
+    try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {}
+  }
+  function onKey(e) { if (e.key === 'Escape') close(); }
+
+  setTimeout(function () {
+    box.hidden = false;
+    requestAnimationFrame(function () { box.classList.add('is-on'); });
+    document.addEventListener('keydown', onKey);
+  }, 25000);
+
+  box.querySelector('.tg-invite-close').addEventListener('click', close);
+  box.querySelector('.tg-invite-btn').addEventListener('click', close);
+})();

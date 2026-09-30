@@ -1395,3 +1395,81 @@ td strong { font-family: var(--serif); font-size: 1.18em; font-weight: 500; }
 @media (prefers-reduced-motion: reduce) {
   .tg-invite { transition: none; }
 }
+
+/* ── Первый экран-сцена: набережная на всю ширину, текст слева, Алина справа.
+   Фон стоит на месте при прокрутке — fixed-слой, обрезанный clip-path секции.
+   Модификатор, чтобы не трогать черновик /nomad-viza на старой обложке. */
+.cover--scene {
+  clip-path: inset(0);
+  color: #fff;
+  background: var(--tinta);
+}
+.cover--scene .cover-light { display: none; }
+.cover-bg { position: fixed; inset: 0; z-index: -2; pointer-events: none; }
+.cover-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; }
+/* затемнение: плотнее слева под текстом, прозрачнее справа у фото */
+.cover-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10, 25, 48, 0.86) 0%, rgba(10, 25, 48, 0.66) 48%, rgba(10, 25, 48, 0.38) 100%),
+    linear-gradient(180deg, rgba(10, 25, 48, 0.35) 0%, transparent 30%);
+}
+.cover--scene .cover-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 440px);
+  gap: clamp(32px, 4vw, 72px);
+  align-items: center;
+}
+.cover--scene .cover-sheet {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  max-width: 720px;
+}
+.cover--scene .cover-sheet::before {
+  position: static;
+  display: inline-block;
+  margin-bottom: 1.4em;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+}
+.cover--scene .cover-title { color: #fff; }
+.cover--scene .cover-dek { color: rgba(255, 255, 255, 0.9); }
+.cover--scene .cover-who { color: rgba(255, 255, 255, 0.74); }
+.cover--scene .arrow-link { color: #fff; border-bottom-color: rgba(255, 255, 255, 0.4); }
+.cover--scene .arrow-link:hover { color: #fff; border-bottom-color: #fff; }
+.cover--scene .fields { border-top-color: rgba(255, 255, 255, 0.22); }
+.cover--scene .field-cell + .field-cell { border-left-color: rgba(255, 255, 255, 0.22); }
+.cover--scene .field-key { color: rgba(255, 255, 255, 0.62); }
+.cover--scene .field-note { color: rgba(255, 255, 255, 0.74); }
+/* портрет Алины справа — в сетке, а не абсолютом */
+.cover--scene .cover-photo {
+  order: 2;
+  position: relative;
+  inset: auto;
+  translate: none;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+.cover--scene .cover-photo img {
+  -webkit-mask-image: none;
+  mask-image: none;
+  object-position: 78% 36%;
+}
+
+@media (max-width: 980px) {
+  .cover--scene { padding: 104px 0 clamp(40px, 8vw, 64px); }
+  .cover--scene .cover-inner { grid-template-columns: 1fr; }
+  .cover--scene .cover-photo { max-width: 440px; aspect-ratio: 4 / 5; }
+  .cover-bg::after { background: linear-gradient(180deg, rgba(10, 25, 48, 0.72) 0%, rgba(10, 25, 48, 0.8) 100%); }
+}
+@media (max-width: 620px) {
+  .cover--scene .field-cell + .field-cell { border-top-color: rgba(255, 255, 255, 0.16); }
+}
